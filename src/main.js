@@ -9,6 +9,9 @@ function setCardType(type) {
   const colors = {
     visa: ["#436D99", "#2D57F2"],
     mastercard: ["#DF6F29", "#C69347"],
+    americanexpress: ["#008001", "#008000"],
+    elo: ["#CA0303", "#2D57F2"],
+    dinersclub: ["#0079BE", "#0079BE"],
     default: ["black", "gray"],
   }
 
@@ -58,6 +61,22 @@ const cardNumberPattern = {
     },
     {
       mask: "0000 0000 0000 0000",
+      regex: /^3[47][0-9]{13}$/,
+      cardtype: "americanexpress",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex:
+        /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})$/,
+      cardtype: "elo",
+    },
+    {
+      mask: "0000 0000 0000 0000",
+      regex: /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+      cardtype: "dinersclub",
+    },
+    {
+      mask: "0000 0000 0000 0000",
       cardtype: "default",
     },
   ],
@@ -66,7 +85,7 @@ const cardNumberPattern = {
     const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
-
+    console.log(foundMask)
     return foundMask
   },
 }
